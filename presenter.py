@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from typing import List
 
 
-# Interfejs iModel
 class IModel(ABC):
     @abstractmethod
     def get_stan_alarmu(self) -> bool:
@@ -41,7 +40,6 @@ class IModel(ABC):
         pass
 
 
-# Interfejs iPresenter
 class IPresenter(ABC):
     @abstractmethod
     def zmien_haslo(self, haslo: str, nowe_haslo: str) -> None:
@@ -84,7 +82,6 @@ class IPresenter(ABC):
         pass
 
 
-# Klasa Fasada implementująca iPresenter
 class Fasada(IPresenter):
     def aktywuj_czuwanie(self) -> None:
         pass
@@ -126,7 +123,6 @@ class Fasada(IPresenter):
         pass
 
 
-# Klasa ObslugaAlarmu
 class ObslugaAlarmu:
     def wlacz_alarm(self) -> None:
         pass
@@ -153,7 +149,6 @@ class ObslugaAlarmu:
         pass
 
 
-# Klasa ObslugaKamer
 class ObslugaKamer:
     def dodaj_kamere(self, kod: int, pomieszczenie: str) -> None:
         pass
@@ -162,7 +157,6 @@ class ObslugaKamer:
         pass
 
 
-# Klasa ObslugaCzujnikow
 class ObslugaCzujnikow:
     def dodaj_czujnik(self, kod: int, typ: str, pomieszczenie: str):
         pass
@@ -174,7 +168,6 @@ class ObslugaCzujnikow:
         pass
 
 
-# Klasa ObslugaLogowania
 class ObslugaLogowania:
     def login(self, login: str, haslo: str) -> None:
         pass
@@ -186,7 +179,6 @@ class ObslugaLogowania:
         pass
 
 
-# Klasa AutoryzacjaRFID
 class AutoryzacjaRFID:
     def autoryzacja_rfid(self, klucz: str, uzytkownik) -> bool:
         pass

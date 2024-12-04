@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-# Interfejs iModel
 class IModel(ABC):
     @abstractmethod
     def get_stan_alarmu(self) -> bool:
@@ -84,7 +83,6 @@ class IModel(ABC):
         pass
 
 
-# Klasa Alarm
 class Alarm:
     def __init__(self, stan: bool, tryb: str):
         self.stan = stan
@@ -103,7 +101,6 @@ class Alarm:
         pass
 
 
-# Klasa Czujnik
 class Czujnik:
     def __init__(self, kod: int, typ: str, pomieszczenie: str):
         self.kod = kod
@@ -129,7 +126,6 @@ class Czujnik:
         pass
 
 
-# Klasa Kamera
 class Kamera:
     def __init__(self, kod: int, pomieszczenie: str):
         self.kod = kod
@@ -148,7 +144,6 @@ class Kamera:
         pass
 
 
-# Klasa Uzytkownik
 class Uzytkownik:
     def __init__(self, login: str, haslo: str, rola: str):
         self.login = login
@@ -168,7 +163,6 @@ class Uzytkownik:
         pass
 
 
-# Interfejs iDao
 class IDao(ABC):
     @abstractmethod
     def get(self):
@@ -187,7 +181,6 @@ class IDao(ABC):
         pass
 
 
-# Klasa DaoCzujnik implementująca iDao
 class DaoCzujnik(IDao):
     def get(self) -> Czujnik:
         pass
@@ -202,7 +195,6 @@ class DaoCzujnik(IDao):
         pass
 
 
-# Klasa DaoKamera implementująca iDao
 class DaoKamera(IDao):
     def get(self) -> Kamera:
         pass
@@ -217,7 +209,6 @@ class DaoKamera(IDao):
         pass
 
 
-# Klasa DaoUzytkownik implementująca iDao
 class DaoUzytkownik(IDao):
     def get(self) -> Uzytkownik:
         pass
@@ -232,7 +223,6 @@ class DaoUzytkownik(IDao):
         pass
 
 
-# Klasa Fasada implementująca IModel
 class Fasada(IModel):
     def get_stan_alarmu(self) -> bool:
         pass
