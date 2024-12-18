@@ -67,22 +67,15 @@ class Urzadzenie:
 
 # Klasa Czujnik dziedziczy po Urzadzenie
 class Czujnik(Urzadzenie):
-    def __init__(self, kod: int, pomieszczenie: str, typ: str, rodzaj: str):
+    def __init__(self, kod: int, pomieszczenie: str, typ: str):
         super().__init__(kod, pomieszczenie)
-        self.__typ = typ
-        self.__rodzaj = rodzaj
-
-    def get_typ(self) -> str:
-        return self.__typ
-
-    def set_typ(self, typ: str) -> None:
         self.__typ = typ
 
     def get_rodzaj_czujnika(self) -> str:
-        return self.__rodzaj
+        return self.__typ
 
     def set_rodzaj_czujnika(self, rodzaj: str) -> None:
-        self.__rodzaj = rodzaj
+        self.__typ = rodzaj
 
 
 # Klasa Kamera dziedziczy po Urzadzenie
@@ -95,6 +88,27 @@ class Kamera(Urzadzenie):
 
     def set_kod_kamery(self, kod: int) -> None:
         self.set_kod(kod)
+
+
+# Interfejs FabrykaUrządzeń
+from abc import ABC, abstractmethod
+
+class FabrykaUrzadzen(ABC):
+    @abstractmethod
+    def dodaj_urzadzenie(self):
+        pass
+
+
+# Klasa FabrykaKamer implementuje FabrykaUrzadzen
+class FabrykaKamer(FabrykaUrzadzen):
+    def dodaj_urzadzenie(self, kod: int, pomieszczenie: str) -> Kamera:
+        return Kamera(kod, pomieszczenie)
+
+
+# Klasa FabrykaCzujnikow implementuje FabrykaUrzadzen
+class FabrykaCzujnikow(FabrykaUrzadzen):
+    def dodaj_urzadzenie(self, kod: int, typ: str, pomieszczenie: str) -> Czujnik:
+        return Czujnik(kod, pomieszczenie, typ)
 
 
 # Klasa Dao (Data Access Object)
@@ -154,10 +168,10 @@ class Fasada:
 
     # Metody zarządzania Uzytkownikami
     def update_uzytkownik(self, uzytkownik: Uzytkownik) -> None:
-        self.__uzytkownicy.append(uzytkownik)
+        self.__dao.update_uzytkownik(uzytkownik)
 
     def delete_uzytkownik(self, uzytkownik: Uzytkownik) -> None:
-        self.__uzytkownicy.remove(uzytkownik)
+        self.__dao.delete_uzytkownik(uzytkownik)
 
     def get_uzytkownik(self, login: str) -> Optional[Uzytkownik]:
         for uzytkownik in self.__dao.get_uzytkownicy():
@@ -167,15 +181,14 @@ class Fasada:
 
     # Metody zarządzania Czujnikami
     def update_czujnik(self, czujnik: Czujnik) -> None:
-        self.__czujniki.append(czujnik)
+        self.__dao.update_czujnik(czujnik)
 
     def delete_czujnik(self, czujnik: Czujnik) -> None:
-        self.__czujniki.remove(czujnik)
+        self.__dao.delete_czujnik(czujnik)
 
     # Metody zarządzania Kamerami
     def update_kamera(self, kamera: Kamera) -> None:
-        self.__kamery.append(kamera)
+        self.__dao.update_kamera(kamera)
 
     def delete_kamera(self, kamera: Kamera) -> None:
-        self.__kamery.remove(kamera)
-
+        self.__dao.delete_kamera(kamera)

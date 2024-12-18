@@ -168,7 +168,11 @@ class ObslugaAlarmu:
 class ObslugaKamer:
     def usun_kamere(self, kamera: 'Kamera') -> None:
         print(f"Usuwanie kamery {kamera}")
-
+        if autoryzacja_rfid(uzytkownik):
+            delete_kamera(kamera)
+            print(f"Usunięto kamerę {kamera}")
+        else:
+            print("Brak autoryzacji")
     def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
         print(f"Podgląd obrazu w trybie {tryb}")
 
