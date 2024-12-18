@@ -4,7 +4,9 @@ class Widok:
     """
 
     def wyswietl_panel_logowania(self) -> None:
-        print("Wyświetlanie panelu logowania")
+        print("Panel logowania")
+
+
 
 
 class WidokOchroniarza(Widok):
@@ -62,12 +64,6 @@ class Aplikacja:
 
 
 if __name__ == "__main__":
-    # Przykład użycia z WidokOchroniarza
     widok = WidokOchroniarza()
     aplikacja = Aplikacja(widok)
     aplikacja.main()
-
-    # Przykład użycia z WidokAdministratora
-    widok_admin = WidokAdministratora()
-    aplikacja_admin = Aplikacja(widok_admin)
-    aplikacja_admin.main()
