@@ -113,22 +113,22 @@ class Dao:
     def get_kamery(self) -> list[Kamera]:
         return self.__kamery
 
-    def zapisz_uzytkownika(self, uzytkownik: Uzytkownik) -> None:
+    def update_uzytkownik(self, uzytkownik: Uzytkownik) -> None:
         self.__uzytkownicy.append(uzytkownik)
 
-    def zapisz_czujnik(self, czujnik: Czujnik) -> None:
+    def update_czujnik(self, czujnik: Czujnik) -> None:
         self.__czujniki.append(czujnik)
 
-    def zapisz_kamere(self, kamera: Kamera) -> None:
+    def update_kamera(self, kamera: Kamera) -> None:
         self.__kamery.append(kamera)
 
-    def usun_uzytkownika(self, uzytkownik: Uzytkownik) -> None:
+    def delete_uzytkownik(self, uzytkownik: Uzytkownik) -> None:
         self.__uzytkownicy.remove(uzytkownik)
 
-    def usun_czujnik(self, czujnik: Czujnik) -> None:
+    def delete_czujnik(self, czujnik: Czujnik) -> None:
         self.__czujniki.remove(czujnik)
 
-    def usun_kamere(self, kamera: Kamera) -> None:
+    def delete_kamera(self, kamera: Kamera) -> None:
         self.__kamery.remove(kamera)
 
 
@@ -153,11 +153,11 @@ class Fasada:
         self.__alarm.set_tryb(tryb)
 
     # Metody zarządzania Uzytkownikami
-    def zapisz_uzytkownika(self, uzytkownik: Uzytkownik) -> None:
-        self.__dao.zapisz_uzytkownika(uzytkownik)
+    def update_uzytkownik(self, uzytkownik: Uzytkownik) -> None:
+        self.__uzytkownicy.append(uzytkownik)
 
-    def usun_uzytkownika(self, uzytkownik: Uzytkownik) -> None:
-        self.__dao.usun_uzytkownika(uzytkownik)
+    def delete_uzytkownik(self, uzytkownik: Uzytkownik) -> None:
+        self.__uzytkownicy.remove(uzytkownik)
 
     def get_uzytkownik(self, login: str) -> Optional[Uzytkownik]:
         for uzytkownik in self.__dao.get_uzytkownicy():
@@ -166,16 +166,16 @@ class Fasada:
         return None
 
     # Metody zarządzania Czujnikami
-    def zapisz_czujnik(self, czujnik: Czujnik) -> None:
-        self.__dao.zapisz_czujnik(czujnik)
+    def update_czujnik(self, czujnik: Czujnik) -> None:
+        self.__czujniki.append(czujnik)
 
-    def usun_czujnik(self, czujnik: Czujnik) -> None:
-        self.__dao.usun_czujnik(czujnik)
+    def delete_czujnik(self, czujnik: Czujnik) -> None:
+        self.__czujniki.remove(czujnik)
 
     # Metody zarządzania Kamerami
-    def zapisz_kamere(self, kamera: Kamera) -> None:
-        self.__dao.zapisz_kamere(kamera)
+    def update_kamera(self, kamera: Kamera) -> None:
+        self.__kamery.append(kamera)
 
-    def usun_kamere(self, kamera: Kamera) -> None:
-        self.__dao.usun_kamere(kamera)
+    def delete_kamera(self, kamera: Kamera) -> None:
+        self.__kamery.remove(kamera)
 
