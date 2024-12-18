@@ -1,45 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 
 
-class IModel(ABC):
-    @abstractmethod
-    def get_stan_alarmu(self) -> bool:
-        pass
-
-    @abstractmethod
-    def get_tryb(self) -> str:
-        pass
-
-    @abstractmethod
-    def set_stan_alarmu(self, stan: bool) -> None:
-        pass
-
-    @abstractmethod
-    def set_tryb(self, tryb: str) -> None:
-        pass
-
-    @abstractmethod
-    def getRFID(self) -> str:
-        pass
-
-    @abstractmethod
-    def getDaneLogowania(self) -> str:
-        pass
-
-    @abstractmethod
-    def get_kod_czujnika(self) -> int:
-        pass
-
-    @abstractmethod
-    def get_rodzaj_czujnika(self) -> str:
-        pass
-
-    @abstractmethod
-    def get_pomieszczenie_czujnika(self) -> str:
-        pass
-
-
+# Definicja interfejsu IPresenter
 class IPresenter(ABC):
     @abstractmethod
     def zmien_haslo(self, haslo: str, nowe_haslo: str) -> None:
@@ -50,10 +13,6 @@ class IPresenter(ABC):
         pass
 
     @abstractmethod
-    def dodaj_czujnik(self, typ: str, kod: int) -> None:
-        pass
-
-    @abstractmethod
     def kalibracja_czujnika(self, kod: int, parametry: List[int]) -> None:
         pass
 
@@ -78,107 +37,160 @@ class IPresenter(ABC):
         pass
 
     @abstractmethod
-    def autoryzacja_rfid(self, klucz: str) -> None:
+    def zarejestruj(self, login: str, haslo: str) -> 'Uzytkownik':
+        pass
+
+    @abstractmethod
+    def autoryzacja_rfid(self, klucz: str, uzytkownik: 'User') -> bool:
+        pass
+
+    @abstractmethod
+    def usun_kamere(self, kamera: 'Kamera') -> None:
+        pass
+
+    @abstractmethod
+    def podglad_danych(self, czujniki: List[int]) -> None:
+        pass
+
+    @abstractmethod
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
         pass
 
 
-class Fasada(IPresenter):
-    def aktywuj_czuwanie(self) -> None:
-        pass
-
-    def autoryzacja_rfid(self, klucz: str) -> None:
-        pass
-
-    def dezaktywuj_czuwanie(self) -> None:
-        pass
-
-    def dodaj_czujnik(self, typ: str, kod: int) -> None:
-        pass
-
-    def kalibracja_czujnika(self, kod: int, parametry: List[int]) -> None:
-        pass
-
-    def usun_czujnik(self, kod: int) -> None:
-        pass
-
-    def wlacz_alarm(self) -> None:
-        pass
-
-    def wylacz_alarm(self) -> None:
-        pass
-
-    def login(self, login: str, haslo: str) -> None:
-        pass
+# Implementacja Presenter
+class Presenter(IPresenter):
+    def __init__(self, fasada: 'Fasada'):
+        self.fasada = fasada
 
     def zmien_haslo(self, haslo: str, nowe_haslo: str) -> None:
-        pass
+        self.fasada.zmien_haslo(haslo, nowe_haslo)
 
-    def zarejestruj(self, login: str, haslo: str) -> None:
-        pass
+    def login(self, login: str, haslo: str) -> None:
+        self.fasada.login(login, haslo)
 
-    def dodaj_kamere(self, kod: int, pomieszczenie: str) -> None:
-        pass
+    def kalibracja_czujnika(self, kod: int, parametry: List[int]) -> None:
+        self.fasada.kalibracja_czujnika(kod, parametry)
 
-    def usun_kamere(self, kamera) -> None:
-        pass
+    def usun_czujnik(self, kod: int) -> None:
+        self.fasada.usun_czujnik(kod)
 
-
-class ObslugaAlarmu:
     def wlacz_alarm(self) -> None:
-        pass
+        self.fasada.wlacz_alarm()
 
     def wylacz_alarm(self) -> None:
-        pass
+        self.fasada.wylacz_alarm()
 
     def aktywuj_czuwanie(self) -> None:
-        pass
+        self.fasada.aktywuj_czuwanie()
 
     def dezaktywuj_czuwanie(self) -> None:
-        pass
+        self.fasada.dezaktywuj_czuwanie()
 
-    def setTryb(self, tryb: str) -> None:
-        pass
+    def zarejestruj(self, login: str, haslo: str) -> 'Uzytkownik':
+        return self.fasada.zarejestruj(login, haslo)
 
-    def getTryb(self) -> str:
-        pass
+    def autoryzacja_rfid(self, klucz: str, uzytkownik: 'User') -> bool:
+        return self.fasada.autoryzacja_rfid(klucz, uzytkownik)
 
-    def getStan(self) -> bool:
-        pass
+    def usun_kamere(self, kamera: 'Kamera') -> None:
+        self.fasada.usun_kamere(kamera)
 
-    def setStan(self, stan: bool) -> None:
-        pass
+    def podglad_danych(self, czujniki: List[int]) -> None:
+        self.fasada.podglad_danych(czujniki)
+
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
+        self.fasada.podglad_obrazu(tryb, kamery)
+
+
+# Definicja Fasady
+class Fasada:
+    def __init__(self):
+        self.alarm = ObslugaAlarmu()
+        self.kamery = ObslugaKamer()
+        self.czujniki = ObslugaCzujnikow()
+        self.logowanie = ObslugaLogowania()
+
+    def zmien_haslo(self, haslo: str, nowe_haslo: str) -> None:
+        self.logowanie.zmien_haslo(haslo, nowe_haslo)
+
+    def login(self, login: str, haslo: str) -> None:
+        self.logowanie.login(login, haslo)
+
+    def kalibracja_czujnika(self, kod: int, parametry: List[int]) -> None:
+        self.czujniki.kalibracja_czujnika(czujnik=kod, parametry=parametry)
+
+    def usun_czujnik(self, kod: int) -> None:
+        self.czujniki.usun_czujniki(kod)
+
+    def wlacz_alarm(self) -> None:
+        self.alarm.wlacz_alarm()
+
+    def wylacz_alarm(self) -> None:
+        self.alarm.wylacz_alarm()
+
+    def aktywuj_czuwanie(self) -> None:
+        self.alarm.aktywuj_czuwanie()
+
+    def dezaktywuj_czuwanie(self) -> None:
+        self.alarm.dezaktywuj_czuwanie()
+
+    def zarejestruj(self, login: str, haslo: str) -> 'Uzytkownik':
+        return self.logowanie.zarejestruj(login, haslo)
+
+    def autoryzacja_rfid(self, klucz: str, uzytkownik: 'User') -> bool:
+        return self.logowanie.autoryzacja_rfid(klucz, uzytkownik)
+
+    def usun_kamere(self, kamera: 'Kamera') -> None:
+        self.kamery.usun_kamere(kamera)
+
+    def podglad_danych(self, czujniki: List[int]) -> None:
+        self.czujniki.podglad_danych(czujniki)
+
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
+        self.kamery.podglad_obrazu(tryb, kamery)
+
+
+# Implementacje komponentów obsługi
+class ObslugaAlarmu:
+    def wlacz_alarm(self) -> None:
+        print("Włączanie alarmu")
+
+    def wylacz_alarm(self) -> None:
+        print("Wyłączanie alarmu")
+
+    def aktywuj_czuwanie(self) -> None:
+        print("Aktywacja czuwania")
+
+    def dezaktywuj_czuwanie(self) -> None:
+        print("Dezaktywacja czuwania")
 
 
 class ObslugaKamer:
-    def dodaj_kamere(self, kod: int, pomieszczenie: str) -> None:
-        pass
+    def usun_kamere(self, kamera: 'Kamera') -> None:
+        print(f"Usuwanie kamery {kamera}")
 
-    def usun_kamere(self, kamera) -> None:
-        pass
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
+        print(f"Podgląd obrazu w trybie {tryb}")
 
 
 class ObslugaCzujnikow:
-    def dodaj_czujnik(self, kod: int, typ: str, pomieszczenie: str):
-        pass
+    def kalibracja_czujnika(self, czujnik: int, parametry: List[int]) -> None:
+        print(f"Kalibracja czujnika {czujnik} z parametrami {parametry}")
 
-    def kalibracja_czujnika(self, czujnik, parametry: List[int]):
-        pass
+    def usun_czujniki(self, czujnik: int) -> None:
+        print(f"Usuwanie czujnika {czujnik}")
 
-    def usun_czujnik(self, czujnik):
-        pass
+    def podglad_danych(self, czujniki: List[int]) -> None:
+        print(f"Podgląd danych z czujników: {czujniki}")
 
 
 class ObslugaLogowania:
     def login(self, login: str, haslo: str) -> None:
-        pass
+        print(f"Logowanie użytkownika: {login}")
 
     def zmien_haslo(self, haslo: str, nowe_haslo: str) -> None:
-        pass
+        print("Zmiana hasła")
 
-    def zarejestruj(self, login: str, haslo: str) -> None:
-        pass
+    def zarejestruj(self, login: str, haslo: str) -> 'Uzytkownik':
+        print(f"Rejestracja użytkownika: {login}")
 
-
-class AutoryzacjaRFID:
-    def autoryzacja_rfid(self, klucz: str, uzytkownik) -> bool:
-        pass

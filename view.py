@@ -1,83 +1,73 @@
-from abc import ABC, abstractmethod
-
-class iPresenter(ABC):
-    @abstractmethod
-    def zmien_haslo(self, haslo: str, nowe_haslo: str):
-        pass
-
-    @abstractmethod
-    def login(self, login: str, haslo: str):
-        pass
-
-    @abstractmethod
-    def dodaj_czujnik(self, typ: str, kod: int):
-        pass
-
-    @abstractmethod
-    def kalibracja_czujnika(self, kod: int, parametry: list[int]):
-        pass
-
-    @abstractmethod
-    def usun_czujnik(self, kod: int):
-        pass
-
-    @abstractmethod
-    def wlacz_alarm(self):
-        pass
-
-    @abstractmethod
-    def wylacz_alarm(self):
-        pass
-
-    @abstractmethod
-    def aktywuj_czuwanie(self):
-        pass
-
-    @abstractmethod
-    def dezaktywuj_czuwanie(self):
-        pass
-
-    @abstractmethod
-    def autoryzacja_rfid(self, klucz: str):
-        pass
-
-
 class Widok:
-    def wyswietl_panel_logowania(self):
-        pass
+    """
+    Klasa bazowa dla widoków. Odpowiada za wyświetlanie panelu logowania.
+    """
+
+    def wyswietl_panel_logowania(self) -> None:
+        print("Wyświetlanie panelu logowania")
 
 
 class WidokOchroniarza(Widok):
-    def wyswietl_formularz_kalibracja_czujnikow(self):
-        pass
+    """
+    Klasa reprezentująca widok dla ochroniarza.
+    """
 
-    def wyswietl_formularz_dodawania_czujnikow(self):
-        pass
+    def wyswietl_formularz_kalibracja_czujnikow(self) -> None:
+        print("Wyświetlanie formularza kalibracji czujników")
 
-    def wyswietl_formularz_zmiany_hasla(self):
-        pass
+    def wyswietl_formularz_dodawania_czujnikow(self) -> None:
+        print("Wyświetlanie formularza dodawania czujników")
 
-    def wyswietl_podglad_z_kamer(self):
-        pass
+    def wyswietl_formularz_zmiany_hasla(self) -> None:
+        print("Wyświetlanie formularza zmiany hasła")
 
-    def wyswietl_dane_z_czujnikow(self):
-        pass
+    def wyswietl_podglad_z_kamer(self) -> None:
+        print("Wyświetlanie podglądu z kamer")
 
-    def wyswietl_panel_podgladu(self):
-        pass
+    def wyswietl_dane_z_czujnikow(self) -> None:
+        print("Wyświetlanie danych z czujników")
 
-    def autoryzacja_popup(self):
-        pass
+    def wyswietl_panel_podgladu(self) -> None:
+        print("Wyświetlanie panelu podglądu")
+
+    def autoryzacja_popup(self) -> None:
+        print("Wyświetlanie popupu autoryzacji")
 
 
 class WidokAdministratora(Widok):
-    def wyswietl_panel_sterowania_alarmem(self):
-        pass
+    """
+    Klasa reprezentująca widok dla administratora.
+    """
 
-    def wyswietl_kamery_czujniki(self):
-        pass
+    def wyswietl_panel_sterowania_alarmem(self) -> None:
+        print("Wyświetlanie panelu sterowania alarmem")
+
+    def wyswietl_kamery_czujniki(self) -> None:
+        print("Wyświetlanie kamer i czujników")
 
 
 class Aplikacja:
-    def main(self):
-        pass
+    """
+    Klasa główna aplikacji, inicjująca widok.
+    """
+
+    def __init__(self, widok: Widok):
+        self.widok = widok
+
+    def main(self) -> None:
+        """
+        Uruchamia aplikację i wyświetla domyślny panel logowania.
+        """
+        self.widok.wyswietl_panel_logowania()
+
+
+if __name__ == "__main__":
+    # Przykład użycia z WidokOchroniarza
+    widok = WidokOchroniarza()
+    aplikacja = Aplikacja(widok)
+    aplikacja.main()
+
+    # Przykład użycia z WidokAdministratora
+    widok_admin = WidokAdministratora()
+    aplikacja_admin = Aplikacja(widok_admin)
+    aplikacja_admin.main()
