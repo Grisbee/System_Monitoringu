@@ -54,7 +54,7 @@ class IPresenter(ABC):
         pass
 
     @abstractmethod
-    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]], pomieszczenie: Optional[List[string]]) -> None:
         pass
 
 
@@ -100,7 +100,7 @@ class Presenter(IPresenter):
         self.fasada.podglad_danych(czujniki)
 
     def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]], pomieszczenie: Optional[List[string]]) -> None:
-        self.fasada.podglad_obrazu(tryb, kamery)
+        self.fasada.podglad_obrazu(tryb, kamery, pomieszczenie)
 
 
 # Definicja Fasady
