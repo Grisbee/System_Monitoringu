@@ -42,7 +42,7 @@ class IPresenter(ABC):
         pass
 
     @abstractmethod
-    def autoryzacja_rfid(self, klucz: str, uzytkownik: 'User') -> bool:
+    def autoryzacja_rfid(self, uzytkownik: 'User') -> bool:
         pass
 
     @abstractmethod
@@ -90,8 +90,8 @@ class Presenter(IPresenter):
     def zarejestruj(self, login: str, haslo: str) -> 'Uzytkownik':
         return self.fasada.zarejestruj(login, haslo)
 
-    def autoryzacja_rfid(self, klucz: str, uzytkownik: 'User') -> bool:
-        return self.fasada.autoryzacja_rfid(klucz, uzytkownik)
+    def autoryzacja_rfid(self, uzytkownik: 'User') -> bool:
+        return self.fasada.autoryzacja_rfid(uzytkownik)
 
     def usun_kamere(self, kamera: 'Kamera') -> None:
         self.fasada.usun_kamere(kamera)
@@ -99,7 +99,7 @@ class Presenter(IPresenter):
     def podglad_danych(self, czujniki: List[int]) -> None:
         self.fasada.podglad_danych(czujniki)
 
-    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]], pomieszczenie: Optional[List[string]]) -> None:
         self.fasada.podglad_obrazu(tryb, kamery)
 
 
@@ -138,8 +138,8 @@ class Fasada:
     def zarejestruj(self, login: str, haslo: str) -> 'Uzytkownik':
         return self.logowanie.zarejestruj(login, haslo)
 
-    def autoryzacja_rfid(self, klucz: str, uzytkownik: 'User') -> bool:
-        return self.logowanie.autoryzacja_rfid(klucz, uzytkownik)
+    def autoryzacja_rfid(self, uzytkownik: 'User') -> bool:
+        return self.logowanie.autoryzacja_rfid(uzytkownik)
 
     def usun_kamere(self, kamera: 'Kamera') -> None:
         self.kamery.usun_kamere(kamera)
@@ -147,8 +147,8 @@ class Fasada:
     def podglad_danych(self, czujniki: List[int]) -> None:
         self.czujniki.podglad_danych(czujniki)
 
-    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
-        self.kamery.podglad_obrazu(tryb, kamery)
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]], pomieszczenie: Optional[List[string]]) -> None:
+        self.kamery.podglad_obrazu(tryb, kamery, pomieszczenie)
 
 
 # Implementacje komponentów obsługi
@@ -169,8 +169,8 @@ class ObslugaAlarmu:
 class ObslugaKamer:
     def usun_kamere(self, kamera: 'Kamera') -> None:
         print(f"Usuwanie kamery {kamera}")
-        if autoryzacja_rfid(uzytkownik):
-            delete_kamera(kamera)
+        if Fasada.autoryzacja_rfid(uzytkownik):
+            Dao.delete_kamera(kamera)
             print(f"Usunięto kamerę {kamera}")
         else:
             print("Brak autoryzacji")
