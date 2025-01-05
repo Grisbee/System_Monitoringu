@@ -99,7 +99,7 @@ class Presenter(IPresenter):
     def podglad_danych(self, czujniki: List[int]) -> None:
         self.fasada.podglad_danych(czujniki)
 
-    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]], pomieszczenie: Optional[List[string]]) -> None:
         self.fasada.podglad_obrazu(tryb, kamery)
 
 
@@ -147,8 +147,8 @@ class Fasada:
     def podglad_danych(self, czujniki: List[int]) -> None:
         self.czujniki.podglad_danych(czujniki)
 
-    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]]) -> None:
-        self.kamery.podglad_obrazu(tryb, kamery)
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]], pomieszczenie: Optional[List[string]]) -> None:
+        self.kamery.podglad_obrazu(tryb, kamery, pomieszczenie)
 
 
 # Implementacje komponentów obsługi
@@ -169,7 +169,7 @@ class ObslugaAlarmu:
 class ObslugaKamer:
     def usun_kamere(self, kamera: 'Kamera') -> None:
         print(f"Usuwanie kamery {kamera}")
-        if logowanie.autoryzacja_rfid(uzytkownik):
+        if Fasada.autoryzacja_rfid(uzytkownik):
             Dao.delete_kamera(kamera)
             print(f"Usunięto kamerę {kamera}")
         else:
