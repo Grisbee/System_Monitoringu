@@ -216,3 +216,6 @@ class ObslugaLogowania:
     def zarejestruj(self, login: str, haslo: str) -> 'Uzytkownik':
         print(f"Rejestracja użytkownika: {login}")
 
+
+# test
+
