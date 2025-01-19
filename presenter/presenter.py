@@ -1,0 +1,109 @@
+import string
+from abc import ABC, abstractmethod
+from typing import List, Optional
+
+
+# Definicja interfejsu IPresenter
+class IPresenter(ABC):
+    @abstractmethod
+    def zmien_haslo(self, haslo: str, nowe_haslo: str) -> None:
+        pass
+
+    @abstractmethod
+    def login(self, login: str, haslo: str) -> None:
+        pass
+
+    @abstractmethod
+    def kalibracja_czujnika(self, kod: int, parametry: List[int]) -> None:
+        pass
+
+    @abstractmethod
+    def usun_czujnik(self, kod: int) -> None:
+        pass
+
+    @abstractmethod
+    def wlacz_alarm(self) -> None:
+        pass
+
+    @abstractmethod
+    def wylacz_alarm(self) -> None:
+        pass
+
+    @abstractmethod
+    def aktywuj_czuwanie(self) -> None:
+        pass
+
+    @abstractmethod
+    def dezaktywuj_czuwanie(self) -> None:
+        pass
+
+    @abstractmethod
+    def zarejestruj(self, login: str, haslo: str) -> 'Uzytkownik':
+        pass
+
+
+    @abstractmethod
+    def usun_kamere(self, kamera: 'Kamera') -> None:
+        pass
+
+    @abstractmethod
+    def podglad_danych(self, czujniki: List[int]) -> None:
+        pass
+
+    @abstractmethod
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]], pomieszczenie: Optional[List[string]]) -> None:
+        pass
+
+
+# Implementacja Presenter
+class Presenter(IPresenter):
+    def __init__(self, fasada: 'Fasada'):
+        self.fasada = fasada
+
+    def zmien_haslo(self, haslo: str, nowe_haslo: str) -> None:
+        self.fasada.zmien_haslo(haslo, nowe_haslo)
+
+    def login(self, login: str, haslo: str) -> None:
+        self.fasada.login(login, haslo)
+
+    def kalibracja_czujnika(self, kod: int, parametry: List[int]) -> None:
+        self.fasada.kalibracja_czujnika(kod, parametry)
+
+    def usun_czujnik(self, kod: int) -> None:
+        self.fasada.usun_czujnik(kod)
+
+    def wlacz_alarm(self) -> None:
+        self.fasada.wlacz_alarm()
+
+    def wylacz_alarm(self) -> None:
+        self.fasada.wylacz_alarm()
+
+    def aktywuj_czuwanie(self) -> None:
+        self.fasada.aktywuj_czuwanie()
+
+    def dezaktywuj_czuwanie(self) -> None:
+        self.fasada.dezaktywuj_czuwanie()
+
+    def zarejestruj(self, login: str, haslo: str) -> 'Uzytkownik':
+        return self.fasada.zarejestruj(login, haslo)
+
+    def autoryzacja_rfid(self, uzytkownik: 'User') -> bool:
+        return self.fasada.autoryzacja_rfid(uzytkownik)
+
+    def usun_kamere(self, kamera: 'Kamera') -> None:
+        self.fasada.usun_kamere(kamera)
+
+    def podglad_danych(self, czujniki: List[int]) -> None:
+        self.fasada.podglad_danych(czujniki)
+
+    def podglad_obrazu(self, tryb: str, kamery: Optional[List[bool]], pomieszczenie: Optional[List[string]]) -> None:
+        self.fasada.podglad_obrazu(tryb, kamery, pomieszczenie)
+
+
+# Definicja Fasady
+
+# Implementacje komponentów obsługi
+
+
+
+
