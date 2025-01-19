@@ -44,3 +44,4 @@ class Dao:
         lista_kamer.remove(kamera)
 
 
+

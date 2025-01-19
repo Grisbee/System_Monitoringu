@@ -38,7 +38,16 @@ def get_lista_kamer():
 def get_lista_czujnikow():
     return lista_czujnikow
 def set_lista_kamer(lista):
+    print("stara lista ")
     lista_kamer = lista
+
 def set_lista_czujnikow(lista):
     lista_czujnikow = lista
 
+
+kamera5.set_pomieszczenie_kamery(pomieszczenie=False)
+
+p = kamera5.get_pomieszczenie()
+print(p)
+
+kamera5.set_kod_kamery("abc")

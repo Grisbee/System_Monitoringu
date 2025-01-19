@@ -5,7 +5,17 @@ class Kamera(Urzadzenie):
         super().__init__(kod, pomieszczenie)
 
     def set_pomieszczenie_kamery(self, pomieszczenie: str) -> None:
-        self.set_pomieszczenie(pomieszczenie)
+        try:
+            pomieszczenie.strip()
+            self.set_pomieszczenie(pomieszczenie)
+        except Exception as e:
+            print("Blad! " + str(e))
 
     def set_kod_kamery(self, kod: int) -> None:
-        self.set_kod(kod)
+        try:
+            if kod >= 0:
+                self.set_kod(kod)
+        except Exception as e:
+            print("Blad! " + str(e))
+
+
