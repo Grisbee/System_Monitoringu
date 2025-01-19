@@ -24,6 +24,15 @@ class TestKamery(unittest.TestCase):
         self.kamera.set_kod(id)
         result = str(self.kamera.get_kod())+self.kamera.get_pomieszczenie()
         self.assertEqual(result, expected_result)
+
+    def test_kamery_z_wyjatkami(self):
+
+        with self.assertRaises(TypeError):
+            self.kamera.set_pomieszczenie_kamery(pomieszczenie=False)
+
+        # Testowanie metody set_kod_kamery z nieprawidłowym argumentem
+        with self.assertRaises(TypeError):  # Oczekujemy TypeError (lub innego odpowiedniego wyjątku)
+            self.kamera.set_kod_kamery("abc")
     #todo
     # def testGetBillWithException(self):
     #     Executable executable = () -> reservation.setClientPESEL("12345678910"); # Poprawny Executable

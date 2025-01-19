@@ -47,7 +47,4 @@ def set_lista_czujnikow(lista):
 
 kamera5.set_pomieszczenie_kamery(pomieszczenie=False)
 
-p = kamera5.get_pomieszczenie()
-print(p)
-
 kamera5.set_kod_kamery("abc")

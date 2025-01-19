@@ -10,6 +10,7 @@ class Kamera(Urzadzenie):
             self.set_pomieszczenie(pomieszczenie)
         except Exception as e:
             print("Blad! " + str(e))
+            raise TypeError("Pomieszczenie musi być ciągiem znaków (string).")
 
     def set_kod_kamery(self, kod: int) -> None:
         try:
@@ -17,5 +18,7 @@ class Kamera(Urzadzenie):
                 self.set_kod(kod)
         except Exception as e:
             print("Blad! " + str(e))
+            raise TypeError("Kod musi być liczbą całkowitą.")
+
 
 
