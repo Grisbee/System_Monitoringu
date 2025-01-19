@@ -1,3 +1,6 @@
+from view.Widok import Widok
+
+
 class WidokOchroniarza(Widok):
     """
     Klasa reprezentująca widok dla ochroniarza.

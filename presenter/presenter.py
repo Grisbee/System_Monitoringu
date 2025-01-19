@@ -1,6 +1,6 @@
+import string
 from abc import ABC, abstractmethod
 from typing import List, Optional
-from view.Widok import Dao
 
 
 # Definicja interfejsu IPresenter

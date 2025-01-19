@@ -1,3 +1,6 @@
+from view.Widok import Widok
+
+
 class WidokAdministratora(Widok):
     """
     Klasa reprezentująca widok dla administratora.
