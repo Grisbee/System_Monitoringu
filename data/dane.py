@@ -1,6 +1,7 @@
+import model.Alarm
 from model.Kamera import Kamera
 from model.Czujnik import Czujnik
-
+from model.Alarm import Alarm
 
 lista_kamer = []
 lista_czujnikow = []
@@ -29,6 +30,8 @@ for czujnik in lista_czujnikow:
 
 print(kamera1.get_pomieszczenie())
 
+alarm = Alarm(stan=False, tryb="czuwanie")
+
 def get_lista_kamer():
     return lista_kamer
 
@@ -38,3 +41,4 @@ def set_lista_kamer(lista):
     lista_kamer = lista
 def set_lista_czujnikow(lista):
     lista_czujnikow = lista
+

@@ -5,10 +5,14 @@ from typing import Optional
 from model.Kamera import Kamera
 from model.Czujnik import Czujnik
 from model.Uzytkownik import Uzytkownik
-from data.dane import get_lista_kamer
+from data.dane import get_lista_kamer, alarm
 from model.Urzadzenie import Urzadzenie
 from model.Dao import Dao
 from model.Alarm import Alarm
+
+
+
+
 class Fasada:
     def __init__(self):
         self.__alarm = Alarm(False, "")
