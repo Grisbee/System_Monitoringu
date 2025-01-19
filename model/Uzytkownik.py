@@ -1,9 +1,9 @@
 # Klasa Uzytkownik
 class Uzytkownik:
-    def __init__(self, login: str, haslo: str, rfid: str):
+    def __init__(self, login: str, haslo: str):
         self.__login = login
         self.__haslo = haslo
-        self.__rfid = rfid
+        self._authorised = "abc"
 
     def get_login(self) -> str:
         return self.__login
@@ -11,8 +11,9 @@ class Uzytkownik:
     def get_haslo(self) -> str:
         return self.__haslo
 
-    def get_RFID(self) -> str:
-        return self.__rfid
+    def get_RFID(self, uzytkownik: str) -> str:
+        if uzytkownik == self._authorised:
+            return True
 
     def set_login(self, login: str) -> None:
         self.__login = login
@@ -21,5 +22,5 @@ class Uzytkownik:
         self.__haslo = haslo
 
     def set_RFID(self, rfid: str) -> None:
-        self.__rfid = rfid
+        self._authorised = "abc"
 

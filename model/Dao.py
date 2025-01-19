@@ -8,7 +8,6 @@ class Dao:
     def __init__(self):
         self.__uzytkownicy = []
         self.__czujniki = []
-        self.__kamery = []
 
     def get_uzytkownicy(self) -> list[Uzytkownik]:
         return self.__uzytkownicy
@@ -27,8 +26,11 @@ class Dao:
     def update_czujnik(self, czujnik: Czujnik) -> None:
         self.__czujniki.append(czujnik)
 
-    def update_kamera(self, kamera: Kamera) -> None:
-        self.__kamery.append(kamera)
+    @staticmethod
+    def update_kamera(kamera: Kamera) -> None:
+        lista_kamer = get_lista_kamer()
+        lista_kamer.append(kamera)
+
 
     def delete_uzytkownik(self, uzytkownik: Uzytkownik) -> None:
         self.__uzytkownicy.remove(uzytkownik)
@@ -38,4 +40,5 @@ class Dao:
 
     def delete_kamera(self, kamera: Kamera) -> None:
         self.__kamery.remove(kamera)
+
 
