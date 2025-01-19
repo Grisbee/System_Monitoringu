@@ -1,5 +1,34 @@
 import unittest
-from model.Kamera import Kamera
+from parameterized import parameterized
+from model.Kamera import Kamera  # Zmodyfikuj import na właściwy dla Twojego projektu
+
+
 class TestKamery(unittest.TestCase):
+    # Metoda odpowiedzialna za setup przed każdym testem (odpowiednik @BeforeEach)
+    def setUp(self):
+        self.kamera = Kamera(1, "schody")  # Przykładowa inicjalizacja obiektu
+
+    # Testy
+    # Test jednostkowy
     def test_kamery_1(self):
-        self.assertEqual(Kamera(1, "lobby").get_pomieszczenie(), "lobby")
+        result = self.kamera.get_pomieszczenie()  # Dopasuj do metody testowanej w klasie Kamera
+        self.assertEqual(result, "schody", "Pomieszczenie to 'schody'")
+
+    # Test parametryzowany z CsvSource
+    @parameterized.expand([
+        ("korytarz", 1, "1korytarz"),
+        ("lobby", 3, "3lobby"),
+    ])
+    def test_kamery_parameterized_1(self, nazwa, id, expected_result):
+        self.kamera.set_pomieszczenie(nazwa)
+        self.kamera.set_kod(id)
+        result = str(self.kamera.get_kod())+self.kamera.get_pomieszczenie()
+        self.assertEqual(result, expected_result)
+    #todo
+    # def testGetBillWithException(self):
+    #     Executable executable = () -> reservation.setClientPESEL("12345678910"); # Poprawny Executable
+    #     self.assert(executable, "Method should not throw an exception for valid input");
+
+
+if __name__ == "__main__":
+    unittest.main()
