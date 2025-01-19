@@ -34,3 +34,7 @@ def get_lista_kamer():
 
 def get_lista_czujnikow():
     return lista_czujnikow
+def set_lista_kamer(lista):
+    lista_kamer = lista
+def set_lista_czujnikow(lista):
+    lista_czujnikow = lista

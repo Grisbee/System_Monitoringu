@@ -32,6 +32,7 @@ class Dao:
         lista_kamer.append(kamera)
 
 
+
     def delete_uzytkownik(self, uzytkownik: Uzytkownik) -> None:
         self.__uzytkownicy.remove(uzytkownik)
 
@@ -39,6 +40,7 @@ class Dao:
         self.__czujniki.remove(czujnik)
 
     def delete_kamera(self, kamera: Kamera) -> None:
-        self.__kamery.remove(kamera)
+        lista_kamer = get_lista_kamer()
+        lista_kamer.remove(kamera)
 
 
