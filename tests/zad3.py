@@ -13,12 +13,13 @@ class TestDao(unittest.TestCase):
         self.assertEqual(self.dao.get_kamery()[-1].get_kod(), 30)
 
     @parameterized.expand([
-        (1, "korytarz", 5, "korytarz"),
-        (120, "lobby", 5, "korytarz"),
+        (10, "korytarz", 30, "salon"),
+        (120, "lobby", 30, "salon"),
     ])
     def test_dao_parameterized(self, id, nazwa, expected_result1, expected_result2):
         self.dao.update_kamera(Kamera(id, nazwa))
-        self.dao.delete_kamera(Kamera(id, nazwa))
+        kamera = self.dao.get_kamery()[-1]
+        self.dao.delete_kamera(kamera)
         result1 = self.dao.get_kamery()[-1].get_kod()
         result2 = self.dao.get_kamery()[-1].get_pomieszczenie()
         self.assertEqual(result1, expected_result1)
