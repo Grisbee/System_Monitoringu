@@ -1,3 +1,5 @@
+uzytkownik = "abc"
+
 class Aplikacja:
     """
     Klasa główna aplikacji, inicjująca widok.
@@ -15,6 +17,9 @@ class Aplikacja:
 
 if __name__ == "__main__":
     from view import WidokOchroniarza  # Ensure proper import
-    widok = WidokOchroniarza()
-    aplikacja = Aplikacja(widok)
-    aplikacja.main()
+    #widok = WidokOchroniarza()
+    #aplikacja = Aplikacja(widok)
+    #aplikacja.main()
+    uzytkownik = input()
+
+    print(uzytkownik)
