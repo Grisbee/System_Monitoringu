@@ -7,15 +7,16 @@ from model.Czujnik import Czujnik
 
 def ordered_test_loader():
     loader = unittest.TestLoader()
-    loader.sortTestMethodsUsing = lambda x, y: {
+    # Priorytet metod testowych
+    priority_map = {
         'test_dao_1': 0,
-        'test_dao_kamery_parameterized': 1,
-        'test_dao_czujniki_parameterized': 2
-    }[x] - {
-        'test_dao_1': 0,
-        'test_dao_kamery_parameterized': 1,
-        'test_dao_czujniki_parameterized': 2
-    }[y]
+        'test_dao_czujniki_parameterized': 1,
+        'test_dao_kamery_parameterized': 2,
+    }
+
+    # Porównanie metod testowych na podstawie ich priorytetów
+    loader.sortTestMethodsUsing = lambda x, y: priority_map[x] - priority_map[y]
+
     return loader
 
 
@@ -45,11 +46,10 @@ class TestDao(unittest.TestCase):
         (7, "zsyp_na_kartofle", "wykrywacz_gazu", 3, "zsyp_na_kartofle", "wykrywacz_dymu"),
         (5, "dungeon", "czujnik_czucia", 3, "zsyp_na_kartofle", "wykrywacz_dymu"),
     ])
-    def test_dao_czujniki_parameterized(self, czujnik_id, nazwa, typ, expected_result1, expected_result2, expected_result3):
+    def test_dao_czujniki_parameterized(self, czujnik_id, nazwa, typ, expected_result1, expected_result2,
+                                        expected_result3):
         self.dao.update_czujnik(Czujnik(czujnik_id, nazwa, typ))
         czujnik = self.dao.get_czujniki()[-1]
-        print("testxxx")
-        print(czujnik)
         self.dao.delete_czujnik(czujnik)
         result1 = self.dao.get_czujniki()[-1].get_kod()
         result2 = self.dao.get_czujniki()[-1].get_pomieszczenie()

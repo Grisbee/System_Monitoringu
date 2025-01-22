@@ -6,17 +6,17 @@ from model.Czujnik import Czujnik
 def ordered_test_loader():
     """Definiuje loader z określoną kolejnością wykonywania testów."""
     loader = unittest.TestLoader()
-    loader.sortTestMethodsUsing = lambda x, y: {
-                                                   'test_get_stan_alarmu_podstawowy': 0,
-                                                   'test_operacja_podstawowa_poprawna': 1,
-                                                   'test_operacja_zlozona_poprawna': 2,
-                                                   'test_operacja_zlozona_parametr_bledny': 3
-                                               }[x] - {
-                                                   'test_get_stan_alarmu_podstawowy': 0,
-                                                   'test_operacja_podstawowa_poprawna': 1,
-                                                   'test_operacja_zlozona_poprawna': 2,
-                                                   'test_operacja_zlozona_parametr_bledny': 3
-                                               }[y]
+    # Mapowanie metod testowych na priorytety
+    priority_map = {
+        'test_operacja_podstawowa_poprawna': 0,
+        'test_operacja_zlozona_poprawna': 1,
+        'test_get_stan_alarmu_podstawowy': 2,
+        'test_operacja_zlozona_parametr_bledny': 3
+    }
+
+    # Porównanie metod testowych na podstawie ich priorytetów
+    loader.sortTestMethodsUsing = lambda x, y: priority_map[x] - priority_map[y]
+
     return loader
 
 
