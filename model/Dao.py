@@ -2,7 +2,7 @@
 from model.Kamera import Kamera
 from model.Czujnik import Czujnik
 from model.Uzytkownik import Uzytkownik
-from data.dane import get_lista_kamer, get_lista_czujnikow
+from data.dane import get_lista_kamer, get_lista_czujnikow, get_lista_uzytkownikow
 from model.Urzadzenie import Urzadzenie
 class Dao:
     def __init__(self):
@@ -10,7 +10,7 @@ class Dao:
         self.__czujniki = []
 
     def get_uzytkownicy(self) -> list[Uzytkownik]:
-        return self.__uzytkownicy
+        return get_lista_uzytkownikow()
 
     @staticmethod
     def get_czujniki():

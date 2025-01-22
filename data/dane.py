@@ -2,9 +2,11 @@ import model.Alarm
 from model.Kamera import Kamera
 from model.Czujnik import Czujnik
 from model.Alarm import Alarm
+from model.Uzytkownik import Uzytkownik
 
 lista_kamer = []
 lista_czujnikow = []
+lista_uzytkownikow = []
 
 
 kamera1 = Kamera(1, "lobby")
@@ -32,6 +34,9 @@ print(kamera1.get_pomieszczenie())
 
 alarm = Alarm(stan=False, tryb="czuwanie")
 
+uzytkownik = Uzytkownik("barnaba", "maslo")
+lista_uzytkownikow.insert(0, uzytkownik)
+
 def get_lista_kamer():
     return lista_kamer
 
@@ -45,6 +50,8 @@ def set_lista_czujnikow(lista):
     lista_czujnikow = lista
 
 
-kamera5.set_pomieszczenie_kamery(pomieszczenie=False)
+# kamera5.set_pomieszczenie_kamery(pomieszczenie=False)
 
-kamera5.set_kod_kamery("abc")
+# kamera5.set_kod_kamery("abc")
+def get_lista_uzytkownikow():
+    return lista_uzytkownikow

@@ -30,13 +30,9 @@ class TestKamery(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.kamera.set_pomieszczenie_kamery(pomieszczenie=False)
 
-        # Testowanie metody set_kod_kamery z nieprawidłowym argumentem
-        with self.assertRaises(TypeError):  # Oczekujemy TypeError (lub innego odpowiedniego wyjątku)
+
+        with self.assertRaises(TypeError):
             self.kamera.set_kod_kamery("abc")
-    #todo
-    # def testGetBillWithException(self):
-    #     Executable executable = () -> reservation.setClientPESEL("12345678910"); # Poprawny Executable
-    #     self.assert(executable, "Method should not throw an exception for valid input");
 
 
 if __name__ == "__main__":

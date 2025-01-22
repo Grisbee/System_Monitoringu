@@ -43,6 +43,9 @@ class Fasada:
         for uzytkownik in self.__dao.get_uzytkownicy():
             if uzytkownik.get_login() == login:
                 return uzytkownik
+            if login not in uzytkownik.get_login():
+                # Jeśli użytkownik nie istnieje, rzucamy wyjątek
+                raise AttributeError(f"Użytkownik o loginie '{login}' nie został znaleziony.")
         return None
 
     # Metody zarządzania Czujnikami

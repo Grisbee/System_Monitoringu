@@ -14,4 +14,10 @@ class Alarm:
         return self.__tryb
 
     def set_tryb(self, tryb: str) -> None:
-        self.__tryb = tryb
+
+        try:
+            tryb.strip()
+            self.__tryb = tryb
+        except Exception as e:
+            print("Blad! " + str(e))
+            raise TypeError("Pomieszczenie musi być ciągiem znaków (string).")
