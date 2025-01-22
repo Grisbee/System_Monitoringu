@@ -24,7 +24,8 @@ class Dao:
         self.__uzytkownicy.append(uzytkownik)
 
     def update_czujnik(self, czujnik: Czujnik) -> None:
-        self.__czujniki.append(czujnik)
+        lista_czujnikow = get_lista_czujnikow()
+        lista_czujnikow.append(czujnik)
 
     @staticmethod
     def update_kamera(kamera: Kamera) -> None:
@@ -37,7 +38,8 @@ class Dao:
         self.__uzytkownicy.remove(uzytkownik)
 
     def delete_czujnik(self, czujnik: Czujnik) -> None:
-        self.__czujniki.remove(czujnik)
+        lista_czujnikow = get_lista_czujnikow()
+        lista_czujnikow.remove(czujnik)
 
     def delete_kamera(self, kamera: Kamera) -> None:
         lista_kamer = get_lista_kamer()

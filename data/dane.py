@@ -21,9 +21,13 @@ lista_kamer.append(kamera3)
 lista_kamer.append(kamera4)
 lista_kamer.append(kamera5)
 
-czujnik1 = Czujnik(kod=1, pomieszczenie="korytarz", typ="wykrywacz_twojej_starej")
+czujnik1 = Czujnik(kod=1, pomieszczenie="korytarz", typ="wykrywacz_nacisku")
+czujnik2 = Czujnik(kod=2, pomieszczenie="zsyp_na_kartofle", typ="wykrywacz_temperatury")
+czujnik3 = Czujnik(kod=3, pomieszczenie="zsyp_na_kartofle", typ="wykrywacz_dymu")
 
 lista_czujnikow.append(czujnik1)
+lista_czujnikow.append(czujnik2)
+lista_czujnikow.append(czujnik3)
 
 for kamera in lista_kamer:
     print(kamera)
