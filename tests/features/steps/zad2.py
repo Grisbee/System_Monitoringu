@@ -1,24 +1,31 @@
 from behave import given, when, then
 from model.Kamera import Kamera
-from model.Dao import Dao
 
-@given('Mam nową instancję kamery')
+kamery = []  # Lista przechowująca dodane kamery
+
+@given("istnieje kamera o ID {id:d} w pomieszczeniu \"{pomieszczenie}\"")
+def step_impl(context, id, pomieszczenie):
+    context.kamera = Kamera(id, pomieszczenie)
+
+@when("pobieram nazwę pomieszczenia z kamery")
 def step_impl(context):
-    context.dao = Dao()
-    context.nowa_kamera = Kamera(6, "salon")
+    context.result = context.kamera.get_pomieszczenie()
 
-@when('Dodaję do listy kamerę o ID {id:d} i nazwie "{name}"')
-def step_impl(context, id, name):
-    context.dao.update_kamera(context.nowa_kamera)
+@then("nazwa pomieszczenia powinna wynosić \"{pomieszczenie}\"")
+def step_impl(context, pomieszczenie):
+    assert context.result == pomieszczenie, f"Oczekiwano {pomieszczenie}, otrzymano {context.result}"
 
-@then('Najnowsza kamera na liście powinna mieć ID {id:d} i nazwe "{name}"')
-def step_impl(context, id, name):
-    dao = Dao()
-    last_camera = dao.get_kamery()[-1]
-    print(last_camera)
-    ostatni_kod = last_camera.get_kod()
-    assert ostatni_kod == id, f"Powinno byc {id} ale jest {ostatni_kod}"
-    ostatnia_nazwa = last_camera.get_pomieszczenie()
-    assert ostatnia_nazwa == name, f"Powinno byc '{name}' ale jest '{ostatnia_nazwa}'"
+@given("Mam nową instancję kamery")
+def step_impl(context):
+    context.kamera = None  # Inicjalizacja zmiennej
 
+@when("Dodaję do listy kamerę o ID {id:d} i nazwie \"{pomieszczenie}\"")
+def step_impl(context, id, pomieszczenie):
+    nowa_kamera = Kamera(id, pomieszczenie)
+    kamery.append(nowa_kamera)
 
+@then("Najnowsza kamera na liście powinna mieć ID {id:d} i nazwę \"{pomieszczenie}\"")
+def step_impl(context, id, pomieszczenie):
+    last_kamera_id = kamery[-1].get_kod()
+    assert  last_kamera_id == id, f"Oczekiwano ID {id}, otrzymano {kamery[-1].id}"
+    assert kamery[-1].get_pomieszczenie() == pomieszczenie, f"Oczekiwano {pomieszczenie}, otrzymano {kamery[-1].get_pomieszczenie()}"
