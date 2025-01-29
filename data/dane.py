@@ -29,6 +29,7 @@ lista_czujnikow.append(czujnik1)
 lista_czujnikow.append(czujnik2)
 lista_czujnikow.append(czujnik3)
 
+
 for kamera in lista_kamer:
     print(kamera)
 for czujnik in lista_czujnikow:
